@@ -1,0 +1,27 @@
+<!-- templates/report_template.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles/report.css">
+</head>
+<body>
+  <header><h1>{{ title }}</h1><p>{{ date }} — {{ author }}</p></header>
+
+  {% for section in sections %}
+  <section>
+    <h2>{{ section.title }}</h2>
+
+    {% if section.type == 'text' %}
+      <p>{{ section.content|safe }}</p>
+
+    {% elif section.type == 'chart' and section.image_path %}
+      <img src="{{ section.image_path }}" alt="{{ section.title }}" style="max-width:100%;"/>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+
+  <footer>Confidential — Page {{ page_number }} of {{ total_pages }}</footer>
+</body>
+</html>
